@@ -1,4 +1,4 @@
-# aeiou
+# sym-sum
 
 ## Project setup
 ```
