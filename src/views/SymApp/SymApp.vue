@@ -16,6 +16,7 @@
 
 <script>
 import Header from '../Header.vue';
+import Config from '../../common/indexKey.config';
 
 export default {
   name: "SymApp",
@@ -33,58 +34,61 @@ export default {
   computed: {
     difficulty() {
       // level 0-4
-      return Math.floor(this.getGameKey(0) / 2);
+      return Math.floor(this.getGameKey(Config.DIFFICUTY) / 2);
     },
     x() {
-      // difficuty less than 4
       return {
-        value: this.setVariable2Number(1,7),
-        symbol: this.getGameKey(1) + this.getGameKey(7)
+        value: this.createValue(Config.X1, Config.X_SYMBOL),
+        symbol: this.createSymbol(Config.X1, Config.X_SYMBOL)
       };
     },
     y() {
       return {
-        value: this.setVariable2Number(3,8),
-        symbol: this.getGameKey(3) + this.getGameKey(8)
+        value: this.createValue(Config.Y1, Config.Y_SYMBOL),
+        symbol: this.createSymbol(Config.Y1, Config.Y_SYMBOL)
       };
     },
     z() {
       return {
-        value: this.setVariable2Number(5,9),
-        symbol: this.getGameKey(5) + this.getGameKey(9)
+        value: this.createValue(Config.Z1, Config.Z_SYMBOL),
+        symbol: this.createSymbol(Config.Z1, Config.Z_SYMBOL)
       };
     },
   },
   methods: {
     setGame() {
-      let initgameKey; //0.DXXYYZZABC
+      let initgameKey;
       do {
         initgameKey = Math.random().toString().split('.')[1]; //DXXYYZZABC
         console.log(initgameKey);
-      } while (initgameKey.slice(1, 3) === '00'
-      || initgameKey.slice(3, 5) === '00'
-      || initgameKey.slice(5, 7) === '00');
+      } while (initgameKey.slice(Config.X1, Config.X2 + 1) === '00'
+      || initgameKey.slice(Config.Y1, Config.X2 + 1) === '00'
+      || initgameKey.slice(Config.Z1, Config.Z2 + 1) === '00');
       this.gameKey = initgameKey;
     },
     getGameKey(index) {
       return this.gameKey[index];
     },
-    setVariable2Number(varIndex, symbolIndex) {
-      // difficulty 2
-      // 60% --> 0X
-      // 30% --> 1X
-      // 10% --> 2X
-      let placeProb = this.getGameKey(symbolIndex);
-      let outNumber = this.getGameKey(varIndex) !== '0' ? this.getGameKey(varIndex) : this.getGameKey(varIndex + 1);
-      if (placeProb > 14 - (2 * this.difficulty)) {
-        outNumber = '3' + outNumber;
-      } else if (placeProb > 12 - (2 * this.difficulty)) {
-        outNumber = '2' + outNumber;
-      } else if (placeProb > 9 - (2 * this.difficulty)) {
-        outNumber = '1' + outNumber;
+    createValue(varIndex, symbolIndex) {
+      let value = this.getGameKey(varIndex);
+      let randomNum = parseInt(this.getGameKey(symbolIndex));
+      let doubleDifficulty = parseInt(this.getGameKey(Config.DIFFICUTY));
+      // maxRandom + maxDifficulty = 9 + 9
+      // then 18's going to create number 3-
+      if (randomNum + doubleDifficulty > 14) {
+        value = '3' + value;
+      } else if (randomNum + doubleDifficulty > 12) {
+        value = '2' + value;
+      } else if (randomNum + doubleDifficulty > 9) {
+        value = '1' + value;
       }
-      return outNumber;
+      value = value !== '0' ? value : this.getGameKey(varIndex + 1);
+      // return random(0 - 39) by difficulty;
+      return parseInt(value);
     },
+    createSymbol(varIndex, symbolIndex) {
+      return parseInt(this.getGameKey(varIndex) + this.getGameKey(symbolIndex));
+    }
   },
 }
 </script>
