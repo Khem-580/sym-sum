@@ -9,16 +9,6 @@
     y.symbol = {{ y.symbol }} <br /><br />
     z = {{ z.value }} <Symbols :icon=z.symbol /> <br />
     z.symbol = {{ z.symbol }}
-
-    <Symbols :icon=x.symbol src="https://res.cloudinary.com/dxmmeach0/image/upload/v1591950234/adorable-blur-breed-close-up-406014_kpgfyt.jpg" />
-    <Symbols :icon=y.symbol />
-    <Symbols :icon=z.symbol />
-    <Symbols :icon=x.symbol />
-    <Symbols :icon=y.symbol />
-    <Symbols :icon=z.symbol />
-    <Symbols :icon=x.symbol src="https://res.cloudinary.com/dxmmeach0/image/upload/v1591950464/adorable-blur-breed-close-up-406014_kpgfyt.jpg" />
-    <Symbols :icon=y.symbol />
-    <Symbols :icon=z.symbol src="https://res.cloudinary.com/dxmmeach0/image/upload/v1591950234/adorable-blur-breed-close-up-406014_kpgfyt.jpg" />
   </div>
 </template>
 
@@ -35,7 +25,7 @@ export default {
     Symbols,
   },
   mounted() {
-    this.setGame();
+    this.gameKeyGenerator();
   },
   data() {
     return {
@@ -67,18 +57,25 @@ export default {
     },
   },
   methods: {
-    setGame() {
-      let initgameKey;
+    gameKeyGenerator() {
+      let initgameKey
+      let isFalseGameKey;
       do {
         initgameKey = Math.random().toString().split('.')[1]; //DXXYYZZABC
         console.log(initgameKey);
-      } while (initgameKey.slice(Config.X1, Config.X2 + 1) === '00'
-      || initgameKey.slice(Config.Y1, Config.X2 + 1) === '00'
-      || initgameKey.slice(Config.Z1, Config.Z2 + 1) === '00');
+        let symbolX = initgameKey[Config.X1] + initgameKey[Config.X_SYMBOL];
+        let symbolY = initgameKey[Config.Y1] + initgameKey[Config.Y_SYMBOL];
+        let symbolZ = initgameKey[Config.Z1] + initgameKey[Config.Z_SYMBOL];
+        let isSameSymbol = symbolX === symbolY || symbolY === symbolZ || symbolX === symbolZ;
+        let isDoubleZero = initgameKey.slice(Config.X1, Config.X2 + 1) === '00'
+        || initgameKey.slice(Config.Y1, Config.X2 + 1) === '00'
+        || initgameKey.slice(Config.Z1, Config.Z2 + 1) === '00';
+        isFalseGameKey = isSameSymbol || isDoubleZero;
+      } while (isFalseGameKey);
       this.gameKey = initgameKey;
     },
     getGameKey(index) {
-      return this.gameKey[index];
+      return String(this.gameKey[index]);
     },
     createValue(varIndex, symbolIndex) {
       let value = this.getGameKey(varIndex);

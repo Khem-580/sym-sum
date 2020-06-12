@@ -15,7 +15,8 @@ export default {
   },
   computed: {
     utfSymbol() {
-      return "&#x1F3" + this.icon+ ";";
+      const numberSet = parseInt("3"+this.icon) + 30;
+      return "&#x1F" + numberSet + ";";
     },
   },
   data() {
