@@ -1,27 +1,38 @@
 <template>
-  <div>
-    <div class="_container">
-      <Header />
-      {{ gameKey }} <br />
-      d = {{ difficulty }} <br /><br />
-      x = {{ x.value }} <br />
-      x.symbol = {{ x.symbol }} <br /><br />
-      y = {{ y.value }} <br />
-      y.symbol = {{ y.symbol }} <br /><br />
-      z = {{ z.value }} <br />
-      z.symbol = {{ z.symbol }}
-    </div>
+  <div class="_container">
+    <Header />
+    {{ gameKey }} <br />
+    d = {{ difficulty }} <br /><br />
+    x = {{ x.value }} <Symbols :icon=x.symbol /> <br />
+    x.symbol = {{ x.symbol }} <br /><br />
+    y = {{ y.value }} <Symbols :icon=y.symbol /> <br />
+    y.symbol = {{ y.symbol }} <br /><br />
+    z = {{ z.value }} <Symbols :icon=z.symbol /> <br />
+    z.symbol = {{ z.symbol }}
+
+    <Symbols :icon=x.symbol src="https://res.cloudinary.com/dxmmeach0/image/upload/v1591950234/adorable-blur-breed-close-up-406014_kpgfyt.jpg" />
+    <Symbols :icon=y.symbol />
+    <Symbols :icon=z.symbol />
+    <Symbols :icon=x.symbol />
+    <Symbols :icon=y.symbol />
+    <Symbols :icon=z.symbol />
+    <Symbols :icon=x.symbol src="https://res.cloudinary.com/dxmmeach0/image/upload/v1591950464/adorable-blur-breed-close-up-406014_kpgfyt.jpg" />
+    <Symbols :icon=y.symbol />
+    <Symbols :icon=z.symbol src="https://res.cloudinary.com/dxmmeach0/image/upload/v1591950234/adorable-blur-breed-close-up-406014_kpgfyt.jpg" />
   </div>
 </template>
 
 <script>
-import Header from '../Header.vue';
 import Config from '../../common/indexKey.config';
+import Header from '../Header.vue';
+
+import Symbols from '../../components/Symbols.vue';
 
 export default {
   name: "SymApp",
   components: {
-    Header
+    Header,
+    Symbols,
   },
   mounted() {
     this.setGame();
@@ -87,7 +98,7 @@ export default {
       return parseInt(value);
     },
     createSymbol(varIndex, symbolIndex) {
-      return parseInt(this.getGameKey(varIndex) + this.getGameKey(symbolIndex));
+      return this.getGameKey(varIndex) + this.getGameKey(symbolIndex);
     }
   },
 }

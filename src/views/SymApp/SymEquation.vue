@@ -1,17 +1,15 @@
 <template>
   <div>
-    {{ whatiscomponent }}
+    <img v-bind:src=url />
   </div>
 </template>
 
 <script>
 export default {
   name: "SymEquation",
-  data: function() {
-    return {
-      whatiscomponent: "SymEquation",
-    }
-  }
+  props: {
+    url: String,
+  },
 }
 </script>
 
