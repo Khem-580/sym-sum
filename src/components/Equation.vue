@@ -44,12 +44,9 @@ export default {
       return parseInt(this.x.symbol + this.y.symbol + this.z.symbol) % 4;
     },
     answer() {
-      if (this.x && this.y && this.z) 
+      if (this.y && this.z) 
         return this.x.value + this.y.value + this.z.value;
-      else if (this.x && this.y) {
-        console.log(this.x);
-        console.log(this.y);
-        console.log(this.firstOperator);
+      else if (this.y) {
         return this.customMath[0](this.x.value ,this.y.value);
       }
       return this.x.value;

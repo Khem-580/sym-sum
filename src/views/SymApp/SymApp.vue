@@ -29,7 +29,7 @@ export default {
     Symbols,
     Equation,
   },
-  mounted() {
+  created() {
     this.gameKeyGenerator();
   },
   data() {
