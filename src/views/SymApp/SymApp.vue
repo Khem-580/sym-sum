@@ -1,6 +1,9 @@
 <template>
   <div class="_container">
     <Header />
+    <Equation :x=x :y=y />
+    <br />
+    <br />
     {{ gameKey }} <br />
     d = {{ difficulty }} <br /><br />
     x = {{ x.value }} <Symbols :icon=x.symbol /> <br />
@@ -16,6 +19,7 @@
 import Config from '../../common/indexKey.config';
 import Header from '../Header.vue';
 
+import Equation from '../../components/Equation.vue'
 import Symbols from '../../components/Symbols.vue';
 
 export default {
@@ -23,6 +27,7 @@ export default {
   components: {
     Header,
     Symbols,
+    Equation,
   },
   mounted() {
     this.gameKeyGenerator();
@@ -67,10 +72,11 @@ export default {
         let symbolY = initgameKey[Config.Y1] + initgameKey[Config.Y_SYMBOL];
         let symbolZ = initgameKey[Config.Z1] + initgameKey[Config.Z_SYMBOL];
         let isSameSymbol = symbolX === symbolY || symbolY === symbolZ || symbolX === symbolZ;
+        let isLastDigitUndefined = typeof initgameKey[Config.LAST_DIGIT] === 'undefined';
         let isDoubleZero = initgameKey.slice(Config.X1, Config.X2 + 1) === '00'
         || initgameKey.slice(Config.Y1, Config.X2 + 1) === '00'
         || initgameKey.slice(Config.Z1, Config.Z2 + 1) === '00';
-        isFalseGameKey = isSameSymbol || isDoubleZero;
+        isFalseGameKey = isSameSymbol || isDoubleZero || isLastDigitUndefined;
       } while (isFalseGameKey);
       this.gameKey = initgameKey;
     },

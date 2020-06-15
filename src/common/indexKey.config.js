@@ -9,5 +9,6 @@ export default {
   Z2: 6,
   X_SYMBOL: 7,
   Y_SYMBOL: 8,
-  Z_SYMBOL: 9
+  Z_SYMBOL: 9,
+  LAST_DIGIT: 9, // update this when adding new key
 }
