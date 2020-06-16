@@ -1,7 +1,7 @@
 <template>
   <div class="_container">
     <Header />
-    <Equation :x=x :y=y />
+    <Equation :x=x :y=y :z=z />
     <br />
     <br />
     {{ gameKey }} <br />
@@ -74,7 +74,7 @@ export default {
         let isSameSymbol = symbolX === symbolY || symbolY === symbolZ || symbolX === symbolZ;
         let isLastDigitUndefined = typeof initgameKey[Config.LAST_DIGIT] === 'undefined';
         let isDoubleZero = initgameKey.slice(Config.X1, Config.X2 + 1) === '00'
-        || initgameKey.slice(Config.Y1, Config.X2 + 1) === '00'
+        || initgameKey.slice(Config.Y1, Config.Y2 + 1) === '00'
         || initgameKey.slice(Config.Z1, Config.Z2 + 1) === '00';
         isFalseGameKey = isSameSymbol || isDoubleZero || isLastDigitUndefined;
       } while (isFalseGameKey);

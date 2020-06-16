@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mathOperator, mathOperatorZ } from '../common/mathOperator';
 import Symbols from './Symbols.vue';
 
 export default {
@@ -41,24 +42,16 @@ export default {
       return parseInt(this.x.symbol + this.y.symbol) % 4;
     },
     secondOperator() {
-      return parseInt(this.x.symbol + this.y.symbol + this.z.symbol) % 4;
+      return parseInt(this.x.symbol + this.y.symbol + this.z.symbol) % 2;
     },
     answer() {
       if (this.y && this.z) 
-        return this.x.value + this.y.value + this.z.value;
+        return mathOperatorZ(this.x.value, this.y.value, this.z.value)[this.firstOperator+'-'+this.secondOperator];
       else if (this.y) {
-        return this.customMath[0](this.x.value ,this.y.value);
+        return mathOperator(this.x.value, this.y.value)[this.firstOperator];
       }
       return this.x.value;
     },
-    customMath() {
-      return {
-        0: function(x, y) {return x + y},
-        1: function(x, y) {return x - y},
-        2: function(x, y) {return x * y},
-        3: function(x, y) {return x / y},
-      }
-    }
   },
 }
 </script>
