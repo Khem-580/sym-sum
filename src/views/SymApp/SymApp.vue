@@ -1,7 +1,7 @@
 <template>
   <div class="_container">
     <Header />
-    <Equation :x=x :y=y :z=z />
+    <SymEquation :difficulty=difficulty :x=x :y=y :z=z />
     <br />
     <br />
     {{ gameKey }} <br />
@@ -17,17 +17,16 @@
 
 <script>
 import Config from '../../common/indexKey.config';
-import Header from '../Header.vue';
-
-import Equation from '../../components/Equation.vue'
 import Symbols from '../../components/Symbols.vue';
+import Header from '../Header.vue';
+import SymEquation from './SymEquation.vue'
 
 export default {
   name: "SymApp",
   components: {
     Header,
     Symbols,
-    Equation,
+    SymEquation,
   },
   created() {
     this.gameKeyGenerator();
@@ -40,7 +39,7 @@ export default {
   computed: {
     difficulty() {
       // level 0-4
-      return Math.floor(this.getGameKey(Config.DIFFICUTY) / 2);
+      return this.getGameKey(Config.DIFFICUTY) % 5;
     },
     x() {
       return {

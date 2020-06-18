@@ -1,12 +1,12 @@
 <template>
   <div class="center-nowarp">
-    <Symbols :icon="x.symbol" />
-    <template v-if="y">
+    <Symbols :icon="a.symbol" />
+    <template v-if="b">
       <Operator :sign="firstOperator" />
-      <Symbols :icon="y.symbol" />
-      <template v-if="z">
+      <Symbols :icon="b.symbol" />
+      <template v-if="c">
         <Operator :sign="secondOperator" />
-        <Symbols :icon="z.symbol" />
+        <Symbols :icon="c.symbol" />
       </template>
     </template>
     <div class="_equal"> = </div>
@@ -23,40 +23,43 @@ export default {
   name: "Equation",
   components: {
     Symbols,
-    Operator
+    Operator,
   },
   props: {
-    x: {
+    a: {
       type: Object,
       required: true,
     },
-    y: {
+    b: {
       type: Object,
       required: false,
     },
-    z: {
+    c: {
       type: Object,
       required: false,
     },
   },
   computed: {
     firstOperator() {
-      return parseInt(this.x.symbol + this.y.symbol) % 4;
+      let randomSign = parseInt(this.a.symbol + this.b.symbol);
+      if (this.c)
+        randomSign += parseInt(this.c.symbol);
+      return randomSign % 4;
     },
     secondOperator() {
-      return parseInt(this.x.symbol + this.y.symbol + this.z.symbol) % 2;
+      return parseInt(this.a.value + this.b.value + this.c.value) % 2;
     },
     answer() {
-      if (this.y && this.z) 
-        return mathOperatorZ(this.x.value, this.y.value, this.z.value)[this.firstOperator+'-'+this.secondOperator];
-      else if (this.y) {
-        return mathOperator(this.x.value, this.y.value)[this.firstOperator];
+      if (this.b && this.c) 
+        return mathOperatorZ(this.a.value, this.b.value, this.c.value)[this.firstOperator + '-' + this.secondOperator];
+      else if (this.b) {
+        return mathOperator(this.a.value, this.b.value)[this.firstOperator];
       }
-      return this.x.value;
+      return this.a.value;
     },
     classAnswer() {
       return {
-        'answer': true,
+        '_answer': true,
         'fix-long-answer': this.answer <= -10,
       }
     }
@@ -68,22 +71,6 @@ export default {
 .center-nowarp {
   text-align: center;
   white-space: nowrap;
-}
-
-.answer {
-  display: inline-block;
-  color: rgba(111, 191, 76, 1);
-  text-shadow: 1px 2px 4px rgba(111, 191, 76, 0.5);
-  vertical-align: text-bottom;
-  font-size: 25px;
-  @media (min-width: 375px) {
-    vertical-align: super;
-    font-size: 30px;
-    @media (min-width: 768px) {
-      vertical-align: text-bottom;
-      font-size: 54px;
-    }
-  }
 }
 
 .fix-long-answer {
