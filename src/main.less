@@ -3,3 +3,49 @@
   padding: 0px 5px;
   max-width: 768px;
 }
+
+._icon {
+  display: inline-block;
+  color:rgba(255, 64, 64, 1);
+  border-radius: 20%;
+  text-align: center;
+  box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  vertical-align: text-bottom;
+  font-size: 28px;
+  width: 36px;
+  @media (min-width: 375px) {
+    font-size: 32px;
+    width: 48px;
+    height: 45px;
+    @media (min-width: 768px) {
+      font-size: 55px;
+      width: 85px;
+      height: 80px;
+    }
+  }
+}
+
+._operator {
+  ._icon();
+  color: rgba(111, 191, 76, 1);
+  font-weight: bold;
+  height: auto !important;
+  box-shadow: 0px 0px 0px 0px !important;
+}
+
+._equal {
+  ._operator();
+  color: white;
+  text-shadow: 1px 2px 8px rgba(95, 95, 95, 1);
+}
+
+.khem-class {
+  color: rgba(0, 105, 217, 1);
+  color: rgba(111, 191, 76, 1);
+  color: rgba(95, 95, 95, 1);
+  color: rgba(255, 165, 0, 1);
+  color: rgba(237, 95, 213, 1);
+  color: rgba(255, 64, 64, 1);
+  color: rgba(62, 158, 230, 1);
+  color: rgba(153, 77, 77, 1);
+}

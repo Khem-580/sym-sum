@@ -1,27 +1,29 @@
 <template>
-  <div>
-    <template v-if="x && y && z">
-      <Symbols :icon="x.symbol" /> - <Symbols :icon="y.symbol" /> - <Symbols :icon="z.symbol" /> = {{ answer }} <br />
-      {{ firstOperator }} {{ secondOperator }}
+  <div class="center-nowarp">
+    <Symbols :icon="x.symbol" />
+    <template v-if="y">
+      <Operator :sign="firstOperator" />
+      <Symbols :icon="y.symbol" />
+      <template v-if="z">
+        <Operator :sign="secondOperator" />
+        <Symbols :icon="z.symbol" />
+      </template>
     </template>
-    <template v-else-if="x && y">
-      <Symbols :icon="x.symbol" /> - <Symbols :icon="y.symbol" /> = {{ answer }} <br />
-      {{ firstOperator }}
-    </template>
-    <template v-else-if="x">
-      <Symbols :icon="x.symbol" /> = {{ answer }} <br />
-    </template>
+    <div class="_equal"> = </div>
+    <div :class="classAnswer"> {{ answer }} </div>
   </div>
 </template>
 
 <script>
 import { mathOperator, mathOperatorZ } from '../common/mathOperator';
 import Symbols from './Symbols.vue';
+import Operator from './Operator.vue'
 
 export default {
   name: "Equation",
   components: {
-    Symbols
+    Symbols,
+    Operator
   },
   props: {
     x: {
@@ -52,10 +54,41 @@ export default {
       }
       return this.x.value;
     },
+    classAnswer() {
+      return {
+        'answer': true,
+        'fix-long-answer': this.answer <= -10,
+      }
+    }
   },
 }
 </script>
 
-<style scoped>
+<style lang="less" scoped>
+.center-nowarp {
+  text-align: center;
+  white-space: nowrap;
+}
 
+.answer {
+  display: inline-block;
+  color: rgba(111, 191, 76, 1);
+  text-shadow: 1px 2px 4px rgba(111, 191, 76, 0.5);
+  vertical-align: text-bottom;
+  font-size: 25px;
+  @media (min-width: 375px) {
+    vertical-align: super;
+    font-size: 30px;
+    @media (min-width: 768px) {
+      vertical-align: text-bottom;
+      font-size: 54px;
+    }
+  }
+}
+
+.fix-long-answer {
+  @media (min-width: 375px) and (max-width: 767px) {
+    font-size: 27px;
+  }
+}
 </style>
