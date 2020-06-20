@@ -71,6 +71,13 @@ export default {
 .center-nowarp {
   text-align: center;
   white-space: nowrap;
+  padding: 5px 0px;
+  @media (min-width: 375px) {
+    padding: 10px 0px;
+    @media (min-width: 768px) {
+      padding: 15px 0px;
+    }
+  }
 }
 
 .fix-long-answer {

@@ -26,7 +26,7 @@ export default {
   },
   render() {
     return (
-      <div>
+      <div class="whiteBoard">
         { this.equationSlotedRandom.map((Vnode) => Vnode) }
       </div>
     );
@@ -72,4 +72,9 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+.whiteBoard {
+  background: linear-gradient(to bottom,  #ffffff 0%,#f3f3f3 50%,#ededed 51%,#ffffff 100%);
+  padding: 10px 0px;
+}
+</style>
