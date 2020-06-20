@@ -32,42 +32,51 @@ export default {
     );
   },
   computed: {
-    equations() {
-      return {
-        0: [
-          <Equation a={this.x} />, 
-          <Equation a={this.y} />, 
-          <Equation a={this.z} />
-        ],
-        1: [
-          <Equation a={this.x} />,
-          <Equation a={this.y} />,
-          <Equation a={this.y} b={this.z} />
-        ],
-        2: [
-          <Equation a={this.x} />,
-          <Equation a={this.y} b={this.x} />,
-          <Equation a={this.z} b={this.y} />
-        ],
-        3: [
-          <Equation a={this.x} b={this.y} c={this.z} />,
-          <Equation a={this.z} b={this.y} />,
-          <Equation a={this.x} />
-        ],
-        4: [
-          <Equation a={this.x} b={this.y} c={this.z} />,
-          <Equation a={this.y} b={this.x} />,
-          <Equation a={this.x} b={this.z} />
-        ],
-      }
-    },
     equationSlotedRandom() {
-      return [...this.equations[this.difficulty]].sort(() => this.randomNumber);
+      return this.equations(this.difficulty).sort(() => this.randomNumber);
     },
     randomNumber() {
       let randomNum = this.x.symbol - this.y.symbol;
       return randomNum;
     }
+  },
+  methods: {
+    equations(difficulty) {
+      let jsxArr;
+      switch (difficulty) {
+        case 0: jsxArr = [
+            <Equation a={this.x} />, 
+            <Equation a={this.y} />, 
+            <Equation a={this.z} />
+          ];
+          break;
+        case 1: jsxArr = [
+            <Equation a={this.x} />,
+            <Equation a={this.y} />,
+            <Equation a={this.y} b={this.z} />
+          ];
+          break;
+        case 2: jsxArr = [
+            <Equation a={this.x} />,
+            <Equation a={this.y} b={this.x} />,
+            <Equation a={this.z} b={this.y} />
+          ];
+          break;
+        case 3: jsxArr = [
+            <Equation a={this.x} b={this.y} c={this.z} />,
+            <Equation a={this.z} b={this.y} />,
+            <Equation a={this.x} />
+          ];
+          break;
+        default: jsxArr = [
+            <Equation a={this.x} b={this.y} c={this.z} />,
+            <Equation a={this.y} b={this.x} />,
+            <Equation a={this.x} b={this.z} />
+          ];
+          break;
+      }
+      return jsxArr;
+    },
   }
 }
 </script>
