@@ -1,5 +1,6 @@
 <script>
-import Equation from '../../components/Equation.vue'
+import { mapState, mapMutations } from 'vuex';
+import Equation from '../../components/Equation.vue';
 
 export default {
   name: "SymEquation",
@@ -26,8 +27,9 @@ export default {
   },
   render() {
     return (
-      <div class="whiteBoard">
+      <div class="whiteBoard" onClick={ () => this.increment() }>
         { this.equationSlotedRandom.map((Vnode) => Vnode) }
+        { this.count }
       </div>
     );
   },
@@ -38,9 +40,15 @@ export default {
     randomNumber() {
       let randomNum = this.x.symbol - this.y.symbol;
       return randomNum;
-    }
+    },
+    ...mapState({
+      count: state => state.count,
+    }),
   },
   methods: {
+    ...mapMutations({
+      increment: 'increment',
+    }),
     equations(difficulty) {
       let jsxArr;
       switch (difficulty) {

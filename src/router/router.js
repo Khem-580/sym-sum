@@ -5,13 +5,13 @@ Vue.use(VueRouter);
 
 export default new VueRouter({
   routes: [
-    { 
+    {
       path: '/',
-      component: () => import("../views/SymApp/SymApp.vue") 
+      component: () => import("../views/SymApp/SymApp.vue")
     },
-    { 
+    {
       path: '/SymApp',
-      component: () => import("../views/SymApp/SymApp.vue") 
+      component: () => import("../views/SymApp/SymApp.vue")
     },
   ],
 });
