@@ -1,5 +1,5 @@
 <script>
-import { mapState, mapGetters } from 'vuex';
+import { mapState, mapActions } from 'vuex';
 import Equation from '../../components/Equation.vue';
 
 export default {
@@ -25,11 +25,13 @@ export default {
       required: true,
     },
   },
+  mounted() {
+    this.resetColor();
+  },
   render() {
     return (
-      <div class="whiteBoard" onClick={ () => this.increment() }>
+      <div class="whiteBoard" onClick={ () => this.resetColor() }>
         { this.equationSlotedRandom.map((Vnode) => Vnode) }
-        { this.randomColor }
       </div>
     );
   },
@@ -41,14 +43,14 @@ export default {
       let randomNum = this.x.symbol - this.y.symbol;
       return randomNum;
     },
-    ...mapState({ 
-      storeColor: state => state.symApp.storeColor,
-    }),
-    ...mapGetters({
-      randomColor: 'symApp/randomColor',
+    ...mapState({
+      storeColor: state => state.symAppStore.storeColor,
     })
   },
   methods: {
+    ...mapActions({
+      resetColor: 'symAppStore/resetColor',
+    }),
     equations(difficulty) {
       let jsxArr;
       switch (difficulty) {

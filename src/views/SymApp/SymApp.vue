@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import Config from '../../common/indexKey.config';
+import { INDEX_KEY } from '../../common/config';
 import Symbols from '../../components/Symbols.vue';
 import Header from '../Header.vue';
 import SymEquation from './SymEquation.vue'
@@ -39,24 +39,24 @@ export default {
   computed: {
     difficulty() {
       // level 0-4
-      return this.getGameKey(Config.DIFFICUTY) % 5;
+      return this.getGameKey(INDEX_KEY.DIFFICUTY) % 5;
     },
     x() {
       return {
-        value: this.createValue(Config.X1, Config.X_SYMBOL),
-        symbol: this.createSymbol(Config.X1, Config.X_SYMBOL)
+        value: this.createValue(INDEX_KEY.X1, INDEX_KEY.X_SYMBOL),
+        symbol: this.createSymbol(INDEX_KEY.X1, INDEX_KEY.X_SYMBOL)
       };
     },
     y() {
       return {
-        value: this.createValue(Config.Y1, Config.Y_SYMBOL),
-        symbol: this.createSymbol(Config.Y1, Config.Y_SYMBOL)
+        value: this.createValue(INDEX_KEY.Y1, INDEX_KEY.Y_SYMBOL),
+        symbol: this.createSymbol(INDEX_KEY.Y1, INDEX_KEY.Y_SYMBOL)
       };
     },
     z() {
       return {
-        value: this.createValue(Config.Z1, Config.Z_SYMBOL),
-        symbol: this.createSymbol(Config.Z1, Config.Z_SYMBOL)
+        value: this.createValue(INDEX_KEY.Z1, INDEX_KEY.Z_SYMBOL),
+        symbol: this.createSymbol(INDEX_KEY.Z1, INDEX_KEY.Z_SYMBOL)
       };
     },
   },
@@ -67,14 +67,14 @@ export default {
       do {
         initgameKey = Math.random().toString().split('.')[1]; //DXXYYZZABC
         console.log(initgameKey);
-        let symbolX = initgameKey[Config.X1] + initgameKey[Config.X_SYMBOL];
-        let symbolY = initgameKey[Config.Y1] + initgameKey[Config.Y_SYMBOL];
-        let symbolZ = initgameKey[Config.Z1] + initgameKey[Config.Z_SYMBOL];
+        let symbolX = initgameKey[INDEX_KEY.X1] + initgameKey[INDEX_KEY.X_SYMBOL];
+        let symbolY = initgameKey[INDEX_KEY.Y1] + initgameKey[INDEX_KEY.Y_SYMBOL];
+        let symbolZ = initgameKey[INDEX_KEY.Z1] + initgameKey[INDEX_KEY.Z_SYMBOL];
         let isSameSymbol = symbolX === symbolY || symbolY === symbolZ || symbolX === symbolZ;
-        let isLastDigitUndefined = typeof initgameKey[Config.LAST_DIGIT] === 'undefined';
-        let isDoubleZero = initgameKey.slice(Config.X1, Config.X2 + 1) === '00'
-        || initgameKey.slice(Config.Y1, Config.Y2 + 1) === '00'
-        || initgameKey.slice(Config.Z1, Config.Z2 + 1) === '00';
+        let isLastDigitUndefined = typeof initgameKey[INDEX_KEY.LAST_DIGIT] === 'undefined';
+        let isDoubleZero = initgameKey.slice(INDEX_KEY.X1, INDEX_KEY.X2 + 1) === '00'
+        || initgameKey.slice(INDEX_KEY.Y1, INDEX_KEY.Y2 + 1) === '00'
+        || initgameKey.slice(INDEX_KEY.Z1, INDEX_KEY.Z2 + 1) === '00';
         isFalseGameKey = isSameSymbol || isDoubleZero || isLastDigitUndefined;
       } while (isFalseGameKey);
       this.gameKey = initgameKey;
@@ -85,7 +85,7 @@ export default {
     createValue(varIndex, symbolIndex) {
       let value = this.getGameKey(varIndex);
       let randomNum = parseInt(this.getGameKey(symbolIndex));
-      let doubleDifficulty = parseInt(this.getGameKey(Config.DIFFICUTY));
+      let doubleDifficulty = parseInt(this.getGameKey(INDEX_KEY.DIFFICUTY));
       // maxRandom + maxDifficulty = 9 + 9
       // then 18's going to create number 3-
       if (randomNum + doubleDifficulty > 14) {

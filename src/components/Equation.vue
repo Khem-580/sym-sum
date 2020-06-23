@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
+
 import { mathOperator, mathOperatorZ } from '../common/mathOperator';
 import Symbols from './Symbols.vue';
 import Operator from './Operator.vue'
@@ -62,7 +64,10 @@ export default {
         '_answer': true,
         'fix-long-answer': this.answer <= -10,
       }
-    }
+    },
+    ...mapState({
+      storeColor: state => state.symAppStore.storeColor,
+    }),
   },
 }
 </script>

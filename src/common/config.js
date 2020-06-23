@@ -1,5 +1,5 @@
 // .DXXYYZZABC
-export default {
+export const INDEX_KEY = {
   DIFFICUTY: 0,
   X1: 1,
   X2: 2,
