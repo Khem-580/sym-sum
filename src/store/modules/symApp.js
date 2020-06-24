@@ -1,5 +1,4 @@
-import { RANDOM_COLOR, EQUATION_CALLED, RESET_EQUATION_CALLED } from '../mutations';
-import { RESET_COLOR } from '../actions';
+import { RANDOM_COLOR, RESET_COLOR } from '../mutations';
 
 const initState = {
   storeColor: [
@@ -8,8 +7,8 @@ const initState = {
     'rgba(255, 165, 0, 1)',
     'rgba(237, 95, 213, 1)',
     'rgba(62, 158, 230, 1)',
+    'rgba(95, 95, 95, 1)',
   ],
-  equationCalled: 0,
 };
 
 export default {
@@ -19,18 +18,10 @@ export default {
     [RANDOM_COLOR](state) {
       state.storeColor.sort(() => Math.random() - 0.5);
     },
-    [EQUATION_CALLED](state) {
-      state.equationCalled++;
-    },
-    [RESET_EQUATION_CALLED](state) {
-      state.equationCalled = 0;
-    },
+    [RESET_COLOR](state) {
+      state.storeColor = [...initState.storeColor];
+    }
   },
-  actions: {
-    [RESET_COLOR]({ commit }) {
-      commit(RESET_EQUATION_CALLED);
-      commit(RANDOM_COLOR);
-    } 
-  }
+  // actions
   // getters,
 }

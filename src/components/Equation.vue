@@ -10,13 +10,12 @@
       </template>
     </template>
     <div class="_equal"> = </div>
-    <div :class="classAnswer"> {{ answer }} </div>
+    <div :class="classAnswer" :style="styleAnswer"> {{ answer }} </div>
   </div>
 </template>
 
 <script>
 import { mapState } from 'vuex';
-
 import { mathOperator, mathOperatorZ } from '../common/mathOperator';
 import Symbols from './Symbols.vue';
 import Operator from './Operator.vue'
@@ -40,6 +39,10 @@ export default {
       type: Object,
       required: false,
     },
+    color: {
+      type: String,
+      required: false,
+    }
   },
   computed: {
     firstOperator() {
@@ -65,10 +68,21 @@ export default {
         'fix-long-answer': this.answer <= -10,
       }
     },
+    styleAnswer() {
+      return {
+        color: this.getRandomColor()
+      }
+    },
     ...mapState({
       storeColor: state => state.symAppStore.storeColor,
     }),
   },
+  methods: {
+    getRandomColor() {
+      const randomColor = this.a.symbol % this.storeColor.length;
+      return this.storeColor[randomColor];
+    }
+  }
 }
 </script>
 

@@ -1,5 +1,6 @@
 <script>
-import { mapState, mapActions } from 'vuex';
+import { mapMutations } from 'vuex';
+import { RESET_COLOR } from '../../store/mutations';
 import Equation from '../../components/Equation.vue';
 
 export default {
@@ -43,13 +44,10 @@ export default {
       let randomNum = this.x.symbol - this.y.symbol;
       return randomNum;
     },
-    ...mapState({
-      storeColor: state => state.symAppStore.storeColor,
-    })
   },
   methods: {
-    ...mapActions({
-      resetColor: 'symAppStore/resetColor',
+    ...mapMutations({
+      resetColor: `symAppStore/${RESET_COLOR}`,
     }),
     equations(difficulty) {
       let jsxArr;
