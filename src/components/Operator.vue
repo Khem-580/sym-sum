@@ -1,5 +1,5 @@
 <template>
-  <div v-html="operator" class="_operator" />
+  <div v-html="operator" class="_operator" :style="styleObject" />
 </template>
 
 <script>
@@ -9,6 +9,10 @@ export default {
     sign: {
       type: Number,
       required: true,
+    },
+    color: {
+      type: String,
+      required: false,
     }
   },
   computed: {
@@ -21,7 +25,12 @@ export default {
       else if (this.sign === 2)
         utf8 = "&#xD7";
       return utf8;
-    }
+    },
+    styleObject() {
+      return {
+        color: this.color,
+      }
+    },
   }
 }
 </script>

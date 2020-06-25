@@ -2,10 +2,10 @@
   <div class="center-nowarp">
     <Symbols :icon="a.symbol" />
     <template v-if="b">
-      <Operator :sign="firstOperator" />
+      <Operator :sign="firstOperator" :color="this.themeColor" />
       <Symbols :icon="b.symbol" />
       <template v-if="c">
-        <Operator :sign="secondOperator" />
+        <Operator :sign="secondOperator" :color="this.themeColor" />
         <Symbols :icon="c.symbol" />
       </template>
     </template>
@@ -15,10 +15,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState, mapMutations } from 'vuex';
+import { SPLICE_COLOR } from '../store/mutations';
 import { mathOperator, mathOperatorZ } from '../common/mathOperator';
 import Symbols from './Symbols.vue';
-import Operator from './Operator.vue'
+import Operator from './Operator.vue';
 
 export default {
   name: "Equation",
@@ -42,6 +43,15 @@ export default {
     color: {
       type: String,
       required: false,
+    }
+  },
+  mounted() {
+    this.themeColor = this.getRandomColor();
+    this.spliceColor(this.themeColor);
+  },
+  data() {
+    return {
+      themeColor : '',
     }
   },
   computed: {
@@ -70,7 +80,7 @@ export default {
     },
     styleAnswer() {
       return {
-        color: this.getRandomColor()
+        color: this.themeColor,
       }
     },
     ...mapState({
@@ -79,9 +89,12 @@ export default {
   },
   methods: {
     getRandomColor() {
-      const randomColor = this.a.symbol % this.storeColor.length;
-      return this.storeColor[randomColor];
-    }
+      const randomNum = this.a.symbol % this.storeColor.length;
+      return this.storeColor[randomNum];
+    },
+    ...mapMutations({
+      spliceColor: `symAppStore/${SPLICE_COLOR}`
+    }),
   }
 }
 </script>
