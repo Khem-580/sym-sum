@@ -2,6 +2,7 @@
   <div class="_container">
     <Header />
     <SymEquation :difficulty=difficulty :x=x :y=y :z=z />
+    <SymAnswer :x=x :y=y :z=z />
     <br />
     <br />
     {{ gameKey }} <br />
@@ -19,7 +20,8 @@
 import { INDEX_KEY } from '../../common/config';
 import Symbols from '../../components/Symbols.vue';
 import Header from '../Header.vue';
-import SymEquation from './SymEquation.vue'
+import SymEquation from './SymEquation.vue';
+import SymAnswer from './SymAnswer.vue';
 
 export default {
   name: "SymApp",
@@ -27,6 +29,7 @@ export default {
     Header,
     Symbols,
     SymEquation,
+    SymAnswer,
   },
   created() {
     this.gameKeyGenerator();

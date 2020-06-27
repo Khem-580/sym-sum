@@ -16,10 +16,11 @@
 
 <script>
 import { mapState, mapMutations } from 'vuex';
-import { SPLICE_COLOR } from '../store/mutations';
 import { mathOperator, mathOperatorZ } from '../common/mathOperator';
-import Symbols from './Symbols.vue';
+import { SPLICE_COLOR } from '../store/mutations';
 import Operator from './Operator.vue';
+import Symbols from './Symbols.vue';
+
 
 export default {
   name: "Equation",
