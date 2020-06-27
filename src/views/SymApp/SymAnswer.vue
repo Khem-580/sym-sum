@@ -1,12 +1,12 @@
 <template>
   <div class='symbols-container'>
-    <ActiveSymbols :icon="x.symbol" />
-    <ActiveSymbols :icon="y.symbol" />
-    <ActiveSymbols :icon="z.symbol" />
-    <ActiveSymbols :icon="z.symbol" />
-    <ActiveSymbols :icon="y.symbol" />
-    <ActiveSymbols :icon="z.symbol" />
-    <ActiveSymbols :icon="x.symbol" />
+    <ActiveSymbols v-for="symbolAnswer in symbolAnswers"
+      @emitClick="answerControl"
+      :icon="symbolAnswer.var.symbol"
+      :selected="symbolAnswer.selected"
+      :pos="symbolAnswer.pos"
+      :key="'symbolAnswer' + symbolAnswer.pos"
+    />
   </div>
 </template>
 
@@ -31,6 +31,68 @@ export default {
       type: Object,
       required: true,
     },
+  },
+  data() {
+    return {
+      clickedSymbols: [],
+    }
+  },
+  computed: {
+    symbolAnswers() {
+      return [
+        {
+          pos: 0,
+          var: this.x,
+          selected: false,
+          clear: false,
+        },
+        {
+          pos: 1,
+          var: this.y,
+          selected: false,
+          clear: false,
+        },
+        {
+          pos: 2,
+          var: this.z,
+          selected: false,
+          clear: false,
+        },
+        {
+          pos: 3,
+          var: this.z,
+          selected: false,
+          clear: false,
+        },
+        {
+          pos: 4,
+          var: this.y,
+          selected: false,
+          clear: false,
+        },
+        {
+          pos: 5,
+          var: this.z,
+          selected: false,
+          clear: false,
+        },
+        {
+          pos: 6,
+          var: this.x,
+          selected: false,
+          clear: false,
+        }
+      ]
+    },
+  },
+  methods: {
+    answerControl(pos) {
+      const data = {...this.symbolAnswers[pos]};
+      data.selected = !data.selected;
+      this.symbolAnswers.splice(pos, 1, data);
+      console.log(this.symbolAnswers[pos]);
+      this.$forceUpdate();
+    }
   }
 }
 </script>
@@ -42,6 +104,7 @@ export default {
   flex-flow: row nowrap;
   justify-content: center;
   padding: 30px 5px;
+
   @media (min-width: 425px) {
     padding: 30px 20px;
   }

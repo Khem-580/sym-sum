@@ -65,7 +65,7 @@ export default {
   },
   methods: {
     gameKeyGenerator() {
-      let initgameKey
+      let initgameKey;
       let isFalseGameKey;
       do {
         initgameKey = Math.random().toString().split('.')[1]; //DXXYYZZABC

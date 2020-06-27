@@ -1,6 +1,6 @@
 <template>
-  <div class="activeSymbols">
-    <span v-if="!src" class="_icon" :class="isSelected ? 'selected': 'unselected'" v-html="utfSymbol" @click="clickHandler" />
+  <div class="activeSymbols" @click="$emit('emitClick', pos)">
+    <span v-if="!src" class="_icon" :class="selected ? 'selected': 'unselected'" v-html="utfSymbol" />
     <img v-else :src="src" />
   </div>
 </template>
@@ -11,20 +11,17 @@ import Symbols from '../components/Symbols';
 export default {
   name: "SymbolsActive",
   extends: Symbols,
-  data() {
-    return {
-      isSelected: false,
-    }
+  props: {
+    pos: {
+      type: Number,
+      required: true,
+    },
+    selected: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
-  computed: {
-
-  },
-  methods: {
-    clickHandler() {
-      this.isSelected = !this.isSelected;
-      return this.isSelected;
-    }
-  }
 }
 </script>
 
