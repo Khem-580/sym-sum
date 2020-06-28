@@ -28,14 +28,16 @@ export default {
 <style lang="less" scoped>
 
 @import '../less/animation.less';
-@import '../less/calculation.less';
+@import '../less/set.less';
 
+.set_randomNumber(180, 360, 1);
 @shrinkScale: 0.8;
 
 .activeSymbols {
   cursor: pointer;
   user-select: none;
-  .animate_filp();
+  .animate_filp;
+  .animate_rotate(@randomNumber);
 }
 
 .selected {

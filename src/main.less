@@ -1,8 +1,3 @@
-.use-randomNumber (@min: 0, @max: @min + 1, @isInt: 0) {
-  @carry : `@{min} + Math.random() * (@{max} - @{min})`;
-  @randomNumber: `@{isInt} == 1 ? Math.round(@{carry}) : @{carry}`;
-}
-
 ._container {
   margin: auto;
   padding: 0px 5px;

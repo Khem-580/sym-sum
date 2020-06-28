@@ -47,3 +47,18 @@
   });
   .animation(unshrink-y 0.5s);
 }
+
+.animate_rotate(@delay) {
+  .keyframes(rotate, {
+    0% {
+      transform: rotate(0deg);
+    }
+    20% {
+      transform: rotate(unit(-20, deg));
+    }
+    100% {
+      transform: rotate(unit(@delay, deg));
+    }
+  });
+  .animation(rotate 2s forwards unit(@delay, s));
+}
