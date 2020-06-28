@@ -28,25 +28,24 @@ export default {
 <style lang="less" scoped>
 
 @import '../less/animation.less';
+@import '../less/calculation.less';
+
 @shrinkScale: 0.8;
 
-  .activeSymbols {
-    cursor: pointer;
-    user-select: none;
-    .animate_filp();
-  }
+.activeSymbols {
+  cursor: pointer;
+  user-select: none;
+  .animate_filp();
+}
 
-  ._icon {
-    box-shadow: 0px 0px 0px #ffffff;
-  }
+.selected {
+  background: #3390FF;
+  .animate_shrink(@shrinkScale);
+}
 
-  .selected {
-    background: #3390FF;
-    .animate_shrink(@shrinkScale);
-  }
-  
-  .unselected {
-    background: #FFFFFF;
-    .animate_unshrink(@shrinkScale);
-  }
+.unselected {
+  box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  background: white;
+  .animate_unshrink(@shrinkScale);
+}
 </style>
