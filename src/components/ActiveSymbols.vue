@@ -32,21 +32,22 @@ export default {
 
 .set_randomNumber(180, 360, 1);
 @shrinkScale: 0.8;
+@clickColor: #3390FF;
 
 .activeSymbols {
   cursor: pointer;
   user-select: none;
+  border-bottom: 10px solid @clickColor;
   .animate_filp;
   .animate_rotate(@randomNumber);
 }
 
 .selected {
-  background: #3390FF;
+  background: @clickColor;
   .animate_shrink(@shrinkScale);
 }
 
 .unselected {
-  box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.75);
   background: white;
   .animate_unshrink(@shrinkScale);
 }

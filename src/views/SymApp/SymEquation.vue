@@ -31,7 +31,7 @@ export default {
   },
   render() {
     return (
-      <div class="whiteBoard" onClick={ () => this.resetColor() }>
+      <div class="whiteBoard">
         { this.equationSlotedRandom.map((Vnode) => Vnode) }
       </div>
     );
