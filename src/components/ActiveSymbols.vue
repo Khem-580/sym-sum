@@ -1,5 +1,5 @@
 <template>
-  <div class="activeSymbols" @click="$emit('emitClick', pos)">
+  <div class="active-symbols" @click="$emit('emitClick', pos)">
     <span v-if="!src" class="_icon" :class="selected ? 'selected': 'unselected'" v-html="utfSymbol" />
     <img v-else :src="src" />
   </div>
@@ -28,27 +28,34 @@ export default {
 <style lang="less" scoped>
 
 @import '../less/animation.less';
-@import '../less/set.less';
+@import '../less/global-var.less';
 
-.set_randomNumber(180, 360, 1);
 @shrinkScale: 0.8;
-@clickColor: #3390FF;
 
-.activeSymbols {
+.active-symbols {
   cursor: pointer;
   user-select: none;
-  border-bottom: 10px solid @clickColor;
   .animate_filp;
+  .tease();
+  // background: rgba(255,255,255,1);
+  // background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgb(194, 245, 255) 100%);
+  // background: rgb(1,255,0);
+  // background: radial-gradient(circle, rgba(1,255,0,1) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,1) 100%, rgba(1,255,0,1) 100%);
+}
+
+.tease() {
+  .set-randomNumber(180, 360, 1);
   .animate_rotate(@randomNumber);
 }
 
 .selected {
-  background: @clickColor;
+  .set-symbolClickColor();
+  background: @symbolClickColor;
   .animate_shrink(@shrinkScale);
 }
 
 .unselected {
-  background: white;
+  background: transparent;
   .animate_unshrink(@shrinkScale);
 }
 </style>

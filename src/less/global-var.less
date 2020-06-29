@@ -1,0 +1,14 @@
+.set-randomNumber(@min: 0, @max: @min + 1, @isInt: 0) {
+  @carry : `@{min} + Math.random() * (@{max} - @{min})`;
+  @randomNumber: `@{isInt} == 1 ? Math.floor(@{carry}) : @{carry}`;
+}
+
+.set-symbolClickColor() {
+  @symbolClickColor: #3390FF; 
+}
+
+.set-symbolWidth() {
+  @symbolWidth: 36px;
+  @symbolWidth-375: 46px;
+  @symbolWidth-768: 85px;
+}

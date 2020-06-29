@@ -1,12 +1,15 @@
 <template>
-  <div class='symbols-container'>
-    <ActiveSymbols v-for="symbolAnswer in symbolAnswers"
-      @emitClick="answerControl"
-      :icon="symbolAnswer.var.symbol"
-      :selected="symbolAnswer.selected"
-      :pos="symbolAnswer.pos"
-      :key="'symbolAnswer' + symbolAnswer.pos"
-    />
+  <div>
+    <div class='symbols-container'>
+      <ActiveSymbols v-for="symbolAnswer in symbolAnswers"
+        @emitClick="answerControl"
+        :icon="symbolAnswer.var.symbol"
+        :selected="symbolAnswer.selected"
+        :pos="symbolAnswer.pos"
+        :key="'symbolAnswer' + symbolAnswer.pos"
+      />
+    </div>
+    <hr class="underline-symbols" />
   </div>
 </template>
 
@@ -99,19 +102,33 @@ export default {
 
 <style lang='less' scoped>
 
+@import '../../less/global-var.less';
+
+hr.underline-symbols {
+  .set-symbolClickColor();
+  .set-symbolWidth();
+  background-color: @symbolClickColor;
+  border: 0 none;
+  margin: 0 auto;
+  height: 7px;
+  width: unit(7 * @symbolWidth, px);
+  @media (min-width: 375px) {
+    height: 10px;
+    width: unit(7 * @symbolWidth-375, px);
+    @media (min-width: 768px) {
+      width: unit(7 * @symbolWidth-768, px);
+    }
+  }
+}
 .symbols-container {
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
-  padding: 30px 5px;
+  padding: 30px 5px 0px 5px;
 
   @media (min-width: 425px) {
-    padding: 30px 20px;
+    padding: 30px 20px 0px 20px;
   }
-  // background: rgba(255,255,255,1);
-  // background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgb(194, 245, 255) 100%);
-  // background: rgb(1,255,0);
-  // background: radial-gradient(circle, rgba(1,255,0,1) 0%, rgba(255,255,255,1) 21%, rgba(255,255,255,1) 100%, rgba(1,255,0,1) 100%);
 }
 
 </style>

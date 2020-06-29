@@ -1,3 +1,5 @@
+@import './less/global-var.less';
+
 ._container {
   margin: auto;
   padding: 0px 5px;
@@ -5,6 +7,7 @@
 }
 
 ._icon {
+  .set-symbolWidth();
   display: inline-block;
   color:rgba(255, 64, 64, 1);
   background-color: transparent;
@@ -12,14 +15,14 @@
   text-align: center;
   vertical-align: text-bottom;
   font-size: 28px;
-  width: 36px;
+  width: @symbolWidth;
   @media (min-width: 375px) {
     font-size: 32px;
-    width: 46px;
+    width: @symbolWidth-375;
     height: 45px;
     @media (min-width: 768px) {
       font-size: 55px;
-      width: 85px;
+      width: @symbolWidth-768;
       height: 80px;
     }
   }
