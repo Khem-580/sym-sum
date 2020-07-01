@@ -7,6 +7,7 @@
         :selected="symbolAnswer.selected"
         :pos="symbolAnswer.pos"
         :key="'symbolAnswer' + symbolAnswer.pos"
+        :class="symbolAnswer.classes"
       />
     </div>
     <hr class="underline-symbols" />
@@ -43,42 +44,49 @@ export default {
           var: this.x,
           selected: false,
           done: false,
+          classes: '',
         },
         {
           pos: 1,
           var: this.y,
           selected: false,
           done: false,
+          classes: '',
         },
         {
           pos: 2,
           var: this.z,
           selected: false,
           done: false,
+          classes: '',
         },
         {
           pos: 3,
           var: this.z,
           selected: false,
           done: false,
+          classes: '',
         },
         {
           pos: 4,
           var: this.y,
           selected: false,
           done: false,
+          classes: '',
         },
         {
           pos: 5,
           var: this.z,
           selected: false,
           done: false,
+          class: '',
         },
         {
           pos: 6,
           var: this.x,
           selected: false,
           done: false,
+          class: '',
         }
       ]
     },
@@ -88,9 +96,17 @@ export default {
       const isChanged = this.isSymbolChangeable(pos);
       if (isChanged) {
         this.symbolAnswers[pos].selected = !this.symbolAnswers[pos].selected;
-        this.$forceUpdate();
-        console.log(this.symbolAnswers[pos]);
+        this.symbolAnswers[pos].classes = 'selectable';
       }
+      else {
+        this.symbolAnswers[pos].classes = 'unselectable';
+        setTimeout(() => {
+          this.symbolAnswers[pos].classes = '';
+          this.$forceUpdate();
+        }, 1000);
+      }
+      this.$forceUpdate();
+      console.log(this.symbolAnswers[pos]);
     },
     isSymbolChangeable(pos) {
       const hasSelected = this.symbolAnswers[pos].selected;

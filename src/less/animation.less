@@ -10,19 +10,6 @@
 	animation: @arguments;
 }
 
-.animate_filp {
-  .keyframes('flip', {
-    0% {
-      transform: scaleY(0);
-    }
-    100% {
-      transform: scaleY(1);
-    }
-  });
-
-  .animation(flip 0.6s);
-}
-
 .animate_shrink(@shrinkScale) {
   .keyframes(shrink-y, {
     from {
@@ -61,4 +48,34 @@
     }
   });
   .animation(rotate 2s forwards unit(@delay, s));
+}
+
+.animate_toggle(@first, @second) {
+  .keyframes(toggle, {
+    0%, 100% {
+      transform: rotate(0deg);
+    }
+    33% {
+      transform: rotate(unit(@first, deg));
+    }
+    66% {
+      transform: rotate(unit(@second, deg));
+    }
+  });
+  .animation(toggle 0.7s);
+}
+
+.animate_dig_special() {
+  .keyframes(dig, {
+    0%, 100% {
+      transform: translate(0px, 0px);
+    }
+    50% {
+      transform: translate(0px, 50px);
+    }
+    90% {
+      transform: translate(700px, 0px);
+    }
+  });
+  .animation(dig 1s forwards 0s);
 }

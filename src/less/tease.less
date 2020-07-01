@@ -1,0 +1,20 @@
+@pattern-ActiveSymbol: 2;
+@pattern-Unselectable: 2;
+
+.tease-activeSymbol(@pattern) when (@pattern = 1) {
+  .set-randomNumber(180, 360, 1);
+  .animate_rotate(@randomNumber);
+}
+
+.tease-activeSymbol(@pattern) when (@pattern = 2) {
+  .set-randomNumber(360, 420, 1);
+  .animate_rotate(180);
+}
+
+.tease-unselectable(@pattern) when (@pattern = 1) {
+  .animate_toggle(-30, 30);
+}
+
+.tease-unselectable(@pattern) when (@pattern = 2) {
+  .animate_toggle(30, -30);
+}

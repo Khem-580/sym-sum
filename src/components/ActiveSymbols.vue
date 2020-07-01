@@ -1,5 +1,5 @@
 <template>
-  <div class="active-symbols" @click="$emit('emitClick', pos)">
+  <div class="active-symbols" :class=classes @click="$emit('emitClick', pos)">
     <span v-if="!src" class="_icon" :class="selected ? 'selected': 'unselected'" v-html="utfSymbol" />
     <img v-else :src="src" />
   </div>
@@ -21,6 +21,10 @@ export default {
       required: false,
       default: false,
     },
+    classes: {
+      type: String,
+      required: false,
+    }
   },
 }
 </script>
@@ -29,16 +33,15 @@ export default {
 
 @import '../less/animation.less';
 @import '../less/global-var.less';
+@import '../less/tease.less';
 
-@maxPattern: 2;
 @shrinkScale: 0.8;
 
 .active-symbols {
   cursor: pointer;
   user-select: none;
-  .animate_filp;
-  .set-randomNumber(1, @maxPattern, 1);
-  .tease(@randomNumber);
+  .set-randomNumber(1, @pattern-ActiveSymbol, 1);
+  .tease-activeSymbol(@randomNumber);
   // background: rgb(1,255,0);
   // background: radial-gradient(circle, rgba(1,255,0,1) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,1) 100%, rgba(1,255,0,1) 100%);
   // background: rgba(255,255,255,1);
@@ -56,14 +59,15 @@ export default {
   .animate_unshrink(@shrinkScale);
 }
 
-.tease(@pattern) when (@pattern = 1) {
-  .set-randomNumber(180, 360, 1);
-  .animate_rotate(@randomNumber);
+.selectable {
+  .animate_unshrink(@shrinkScale);
 }
 
-.tease(@pattern) when (@pattern = 2) {
-  .set-randomNumber(360, 400, 1);
-  .animate_rotate(180);
+.unselectable {
+  .set-randomNumber(1, @pattern-Unselectable, 1);
+  .tease-unselectable(@randomNumber);
+  .selected {
+    .animate_dig_special;
+  }
 }
-
 </style>
