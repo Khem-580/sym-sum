@@ -30,22 +30,19 @@ export default {
 @import '../less/animation.less';
 @import '../less/global-var.less';
 
+@maxPattern: 2;
 @shrinkScale: 0.8;
 
 .active-symbols {
   cursor: pointer;
   user-select: none;
   .animate_filp;
-  .tease();
-  // background: rgba(255,255,255,1);
-  // background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgb(194, 245, 255) 100%);
+  .set-randomNumber(1, @maxPattern, 1);
+  .tease(@randomNumber);
   // background: rgb(1,255,0);
   // background: radial-gradient(circle, rgba(1,255,0,1) 0%, rgba(255,255,255,1) 70%, rgba(255,255,255,1) 100%, rgba(1,255,0,1) 100%);
-}
-
-.tease() {
-  .set-randomNumber(180, 360, 1);
-  .animate_rotate(@randomNumber);
+  // background: rgba(255,255,255,1);
+  // background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 10%, rgb(194, 245, 255) 100%);
 }
 
 .selected {
@@ -58,4 +55,15 @@ export default {
   background: transparent;
   .animate_unshrink(@shrinkScale);
 }
+
+.tease(@pattern) when (@pattern = 1) {
+  .set-randomNumber(180, 360, 1);
+  .animate_rotate(@randomNumber);
+}
+
+.tease(@pattern) when (@pattern = 2) {
+  .set-randomNumber(360, 400, 1);
+  .animate_rotate(180);
+}
+
 </style>
