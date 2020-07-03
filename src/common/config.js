@@ -1,3 +1,5 @@
+// update this when new_digit > max_digit
+export const LAST_DIGIT = 9;
 // .DXXYYZZABC
 export const INDEX_KEY = {
   DIFFICUTY: 0,
@@ -10,5 +12,4 @@ export const INDEX_KEY = {
   X_SYMBOL: 7,
   Y_SYMBOL: 8,
   Z_SYMBOL: 9,
-  LAST_DIGIT: 9, // update this when adding new key
 }

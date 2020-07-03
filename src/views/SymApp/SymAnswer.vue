@@ -36,59 +36,43 @@ export default {
       required: true,
     },
   },
+  data() {
+    return {
+      initVarUsed: {
+        x: 0,
+        y: 0,
+        z: 0,
+      },
+      countVarUsed: {...this.initVarUsed}
+    }
+  },
   computed: {
+    countVarProps() {
+      return Object.keys(this.initVarUsed).length;
+    },
     symbolAnswers() {
-      return [
-        {
-          pos: 0,
-          var: this.x,
-          selected: false,
-          done: false,
-          classes: '',
-        },
-        {
-          pos: 1,
-          var: this.y,
-          selected: false,
-          done: false,
-          classes: '',
-        },
-        {
-          pos: 2,
-          var: this.z,
-          selected: false,
-          done: false,
-          classes: '',
-        },
-        {
-          pos: 3,
-          var: this.z,
-          selected: false,
-          done: false,
-          classes: '',
-        },
-        {
-          pos: 4,
-          var: this.y,
-          selected: false,
-          done: false,
-          classes: '',
-        },
-        {
-          pos: 5,
-          var: this.z,
-          selected: false,
-          done: false,
-          class: '',
-        },
-        {
-          pos: 6,
-          var: this.x,
-          selected: false,
-          done: false,
-          class: '',
-        }
-      ]
+      let activeSymbolsArr;
+      let isBoringPattern;
+      do {
+        activeSymbolsArr = [];
+        const activeSymbolKey= Math.random().toString().split('.')[1];
+        this.resetCountVarUsed();
+        for (let i = 0; i < 7; i++) {
+          const key = activeSymbolKey[i];
+          const varNum = this.getNumModVars(key);
+          const activeSymbolProp = {
+            pos: i,
+            var: this.getVarFromNum(varNum),
+            selected: false,
+            done: false,
+            classes: '',
+          }
+          activeSymbolsArr.push(activeSymbolProp);
+        } 
+        const isAllVarUsed = this.countVarUsed.x > 0 && this.countVarUsed.y > 0 && this.countVarUsed.z > 0;
+        isBoringPattern = !isAllVarUsed;
+      } while (isBoringPattern);
+      return activeSymbolsArr;
     },
   },
   methods: {
@@ -143,6 +127,25 @@ export default {
       }
       return false;
     },
+    getVarFromNum(num) {
+      switch (num) {
+        case 0:
+          this.countVarUsed.x++;
+          return this.x;
+        case 1:
+          this.countVarUsed.y++;
+          return this.y;
+        default:
+          this.countVarUsed.z++;
+          return this.z;
+      }
+    },
+    getNumModVars(num) {
+      return num % this.countVarProps;
+    },
+    resetCountVarUsed() {
+      this.countVarUsed = {...this.initVarUsed};
+    }
   }
 }
 </script>

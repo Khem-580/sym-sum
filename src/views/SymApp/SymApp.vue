@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import { INDEX_KEY } from '../../common/config';
+import { INDEX_KEY, LAST_DIGIT } from '../../common/config';
 import Symbols from '../../components/Symbols.vue';
 import Header from '../Header.vue';
 import SymEquation from './SymEquation.vue';
@@ -74,7 +74,7 @@ export default {
         let symbolY = initgameKey[INDEX_KEY.Y1] + initgameKey[INDEX_KEY.Y_SYMBOL];
         let symbolZ = initgameKey[INDEX_KEY.Z1] + initgameKey[INDEX_KEY.Z_SYMBOL];
         let isSameSymbol = symbolX === symbolY || symbolY === symbolZ || symbolX === symbolZ;
-        let isLastDigitUndefined = typeof initgameKey[INDEX_KEY.LAST_DIGIT] === 'undefined';
+        let isLastDigitUndefined = typeof initgameKey[LAST_DIGIT] === 'undefined';
         let isDoubleZero = initgameKey.slice(INDEX_KEY.X1, INDEX_KEY.X2 + 1) === '00'
         || initgameKey.slice(INDEX_KEY.Y1, INDEX_KEY.Y2 + 1) === '00'
         || initgameKey.slice(INDEX_KEY.Z1, INDEX_KEY.Z2 + 1) === '00';
