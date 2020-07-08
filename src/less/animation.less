@@ -10,8 +10,8 @@
 	animation: @arguments;
 }
 
-.animate_shrink(@shrinkScale) {
-  .keyframes(shrink-y, {
+.animate_selected(@shrinkScale) {
+  .keyframes(selected, {
     from {
       transform: scale(0.5);
     }
@@ -19,8 +19,7 @@
       transform: scale(@shrinkScale);
     }
   });
-  .animation(shrink-y 0.5s);
-  transform: scale(@shrinkScale);
+  .animation(selected 0.5s forwards);
 }
 
 .animate_unshrink(@shrinkScale) {
@@ -78,4 +77,45 @@
     }
   });
   .animation(dig 1s forwards 0s);
+}
+
+.animate_roll() {
+  .keyframes(roll, {
+    from {
+      transform: translate(10em, -0.5em);
+    }
+    to {
+      transform: translate(0, 0);
+    }
+  });
+  .animation(roll 1s forwards);
+}
+
+.animate_unroll() {
+  .keyframes(unroll, {
+    from {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate(0, -9em) scale(4);
+      border-radius: 0%;
+    }
+  });
+  .animation(unroll 1s forwards);
+}
+
+.animate_unroll_2() {
+  .keyframes(unroll2, {
+    from {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+    to {
+      opacity: 0;
+      transform: translate(-10em, -0.5em) scale(0);
+    }
+  });
+  .animation(unroll2 1s forwards);
 }

@@ -51,7 +51,7 @@ export default {
 .selected {
   .set-symbolClickColor();
   background: @symbolClickColor;
-  .animate_shrink(@shrinkScale);
+  .animate_selected(@shrinkScale);
 }
 
 .unselected {

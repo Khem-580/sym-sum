@@ -2,7 +2,7 @@
   <div>
     <div class='symbols-container'>
       <ActiveSymbols v-for="symbolAnswer in symbolAnswers"
-        @emitClick="answerControl"
+        @emitClick="activeSymbolClick"
         :icon="symbolAnswer.var.symbol"
         :selected="symbolAnswer.selected"
         :pos="symbolAnswer.pos"
@@ -11,16 +11,19 @@
       />
     </div>
     <hr class="underline-symbols" />
+    <CircleAnswer :classes="CircleAnswerClass" @emitClick="answerCheck">{{ sumQuestion }}</CircleAnswer>
   </div>
 </template>
 
 <script>
-import ActiveSymbols from '../../components/ActiveSymbols'
+import ActiveSymbols from '../../components/ActiveSymbols';
+import CircleAnswer from '../../components/CircleAnswer';
 
 export default {
   name: 'SymAnswer',
   components: {
-    ActiveSymbols
+    ActiveSymbols,
+    CircleAnswer,
   },
   props: {
     x: {
@@ -43,12 +46,20 @@ export default {
         y: 0,
         z: 0,
       },
-      countVarUsed: {...this.initVarUsed}
+      countVarUsed: {...this.initVarUsed},
+      sumQuestion: 16,
     }
   },
   computed: {
     countVarProps() {
       return Object.keys(this.initVarUsed).length;
+    },
+    CircleAnswerClass() {
+      return {
+        'init': true,
+        'correct-answer': false,
+        'wrong-answer': false,
+      }
     },
     symbolAnswers() {
       let activeSymbolsArr;
@@ -76,7 +87,32 @@ export default {
     },
   },
   methods: {
-    answerControl(pos) {
+    answerCheck() {
+      this.answerCorrect();
+    },
+    answerCorrect() {
+      this.CircleAnswerClass['correct-init'] = false;
+      this.CircleAnswerClass['correct-answer'] = true;
+      this.$forceUpdate();
+      setTimeout(() => {
+        this.CircleAnswerClass['correct-init'] = true;
+        this.CircleAnswerClass['correct-answer'] = false;
+        this.sumQuestion = 999;
+        this.$forceUpdate();
+      }, 1100)
+    },
+    answerWrong() {
+      this.CircleAnswerClass['correct-init'] = false;
+      this.CircleAnswerClass['wrong-answer'] = true;
+      this.$forceUpdate();
+      setTimeout(() => {
+        this.CircleAnswerClass['correct-init'] = true;
+        this.CircleAnswerClass['wrong-answer'] = false;
+        this.sumQuestion = 65;
+        this.$forceUpdate();
+      }, 1100)
+    },
+    activeSymbolClick(pos) {
       const isChanged = this.isSymbolChangeable(pos);
       if (isChanged) {
         this.symbolAnswers[pos].selected = !this.symbolAnswers[pos].selected;
@@ -161,15 +197,16 @@ hr.underline-symbols {
   border: 0 none;
   margin: 0 auto;
   height: 7px;
-  width: unit(7 * @symbolWidth, px);
+  width: 7 * @symbolWidth;
   @media (min-width: 375px) {
     height: 10px;
-    width: unit(7 * @symbolWidth-375, px);
+    width: 7 * @symbolWidth-375;
     @media (min-width: 768px) {
-      width: unit(7 * @symbolWidth-768, px);
+      width: 7 * @symbolWidth-768;
     }
   }
 }
+
 .symbols-container {
   display: flex;
   flex-flow: row nowrap;
@@ -180,5 +217,4 @@ hr.underline-symbols {
     padding: 30px 20px 0px 20px;
   }
 }
-
 </style>
