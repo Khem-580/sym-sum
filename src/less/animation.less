@@ -91,6 +91,18 @@
   .animation(roll 1s forwards);
 }
 
+.animate_roll_2() {
+  .keyframes(roll, {
+    from {
+      transform: translate(0, -2em) scale(0);
+    }
+    to {
+      transform: translate(0, 0) scale(1);
+    }
+  });
+  .animation(roll 1s forwards);
+}
+
 .animate_unroll() {
   .keyframes(unroll, {
     from {

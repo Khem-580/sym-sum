@@ -212,7 +212,6 @@ hr.underline-symbols {
   flex-flow: row nowrap;
   justify-content: center;
   padding: 30px 5px 0px 5px;
-
   @media (min-width: 425px) {
     padding: 30px 20px 0px 20px;
   }

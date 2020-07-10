@@ -33,7 +33,7 @@ export default {
   font-size: 1.6em;
   background-color: transparent;
   color: @symbolClickColor;
-  box-shadow: 1px 0px 10px 0px rgba(0, 0, 0, 0.75);
+  border: 5px solid @symbolClickColor;
   font-weight: 600;
   margin-top: 0.5em;
   @media (min-width: 768px) {
@@ -45,7 +45,7 @@ export default {
 }
 
 .init {
-  .animate_roll();
+  .animate_roll_2();
 }
 
 .correct-answer {
