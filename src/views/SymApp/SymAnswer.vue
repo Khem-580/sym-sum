@@ -10,7 +10,7 @@
         :class="symbolAnswer.classes"
       />
     </div>
-    <hr class="underline-symbols" />
+    <hr class="underline-symbols" :class="HrClass" />
     <CircleAnswer :classes="CircleAnswerClass" @emitClick="answerCheck">{{ sumQuestion }}</CircleAnswer>
   </div>
 </template>
@@ -48,18 +48,22 @@ export default {
       },
       countVarUsed: {...this.initVarUsed},
       sumQuestion: 16,
+      wrongCount: 0,
     }
   },
   computed: {
-    countVarProps() {
-      return Object.keys(this.initVarUsed).length;
-    },
     CircleAnswerClass() {
       return {
         'init': true,
-        'correct-answer': false,
-        'wrong-answer': false,
       }
+    },
+    HrClass() {
+      return {
+        'wrong': false,
+      }
+    },
+    countVarProps() {
+      return Object.keys(this.initVarUsed).length;
     },
     symbolAnswers() {
       let activeSymbolsArr;
@@ -88,25 +92,30 @@ export default {
   },
   methods: {
     answerCheck() {
-      this.answerCorrect();
+      this.answerWrong();
     },
     answerCorrect() {
-      this.CircleAnswerClass['correct-init'] = false;
       this.CircleAnswerClass['correct-answer'] = true;
       this.$forceUpdate();
       setTimeout(() => {
-        this.CircleAnswerClass['correct-init'] = true;
         this.CircleAnswerClass['correct-answer'] = false;
         this.sumQuestion = 999;
         this.$forceUpdate();
       }, 1100)
     },
     answerWrong() {
-      this.CircleAnswerClass['correct-init'] = false;
       this.CircleAnswerClass['wrong-answer'] = true;
+      this.wrongCount++;
+      if (this.wrongCount === 1) {
+        this.HrClass['wrong'] = true;
+        this.CircleAnswerClass['warning'] = true;
+      }
+      else if (this.wrongCount === 2) {
+        this.HrClass['fail'] = true;
+        this.$router.go();
+      }
       this.$forceUpdate();
       setTimeout(() => {
-        this.CircleAnswerClass['correct-init'] = true;
         this.CircleAnswerClass['wrong-answer'] = false;
         this.sumQuestion = 65;
         this.$forceUpdate();
@@ -187,11 +196,12 @@ export default {
 </script>
 
 <style lang='less' scoped>
-
+@import '../../less/animation.less';
 @import '../../less/global-var.less';
+.set-symbolClickColor();
+.set-circleWarningColor();
 
 hr.underline-symbols {
-  .set-symbolClickColor();
   .set-symbolWidth();
   background-color: @symbolClickColor;
   border: 0 none;
@@ -205,6 +215,14 @@ hr.underline-symbols {
       width: 7 * @symbolWidth-768;
     }
   }
+}
+
+hr.wrong {
+  .animate_background_position_upgrade(@symbolClickColor, @circleWarningColor, -0%, 100%, 110%);
+}
+
+hr.fail {
+  .animate_background_position(@circleWarningColor, red, -10%, -20%);
 }
 
 .symbols-container {

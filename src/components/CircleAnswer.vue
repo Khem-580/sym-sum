@@ -20,6 +20,7 @@ export default {
 @import '../less/animation';
 @import '../less/global-var';
 .set-symbolClickColor;
+.set-circleWarningColor;
 
 .circle-answer {
   cursor: pointer;
@@ -48,6 +49,11 @@ export default {
   .animate_roll_2();
 }
 
+.warning {
+  color: @circleWarningColor;
+  border-color: @circleWarningColor;
+}
+
 .correct-answer {
   background: @symbolClickColor;
   color:white;
@@ -56,6 +62,7 @@ export default {
 
 .wrong-answer {
   color:red;
+  border-color: transparent;
   .animate_unroll_2();
 }
 

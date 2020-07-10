@@ -131,3 +131,34 @@
   });
   .animation(unroll2 1s forwards);
 }
+
+.animate_background_position(@fromColor, @toColor, @fromPosition, @toPosition) {
+  .keyframes(background_position, {
+    0% {
+      background-position: @fromPosition 50%;
+    }
+    100% {
+      background-position: @toPosition 50%;
+    }
+  });
+  background: linear-gradient(90deg, @fromColor, @toColor);
+  background-size: 600% 600%;
+  .animation(background_position 2s ease forwards);
+}
+
+.animate_background_position_upgrade(@fromColor, @toColor, @fromPosition, @middlePosition, @toPosition) {
+  .keyframes(_background_position_upgrade, {
+    0% {
+      background-position: @fromPosition 50%;
+    }
+    50% {
+      background-position: @middlePosition 50%;
+    }
+    100% {
+      background-position: @toPosition 50%;
+    }
+  });
+  background: linear-gradient(90deg, @fromColor, @toColor);
+  background-size: 600% 600%;
+  .animation(_background_position_upgrade 5s ease-in forwards);
+}
