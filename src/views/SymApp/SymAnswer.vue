@@ -112,7 +112,6 @@ export default {
       }
       else if (this.wrongCount === 2) {
         this.HrClass['fail'] = true;
-        this.$router.go();
       }
       this.$forceUpdate();
       setTimeout(() => {
@@ -218,11 +217,11 @@ hr.underline-symbols {
 }
 
 hr.wrong {
-  .animate_background_position_upgrade(@symbolClickColor, @circleWarningColor, -0%, 100%, 110%);
+  .animate_background_position_upgrade(@symbolClickColor, @circleWarningColor, -0%, -100%, -20%);
 }
 
 hr.fail {
-  .animate_background_position(@circleWarningColor, red, -10%, -20%);
+  .animate_background_position(@circleWarningColor, red, -0%, -20%);
 }
 
 .symbols-container {

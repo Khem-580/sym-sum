@@ -32,7 +32,7 @@ export default {
   width: 68px;
   height: 68px;
   font-size: 1.6em;
-  background-color: transparent;
+  background-color: white;
   color: @symbolClickColor;
   border: 5px solid @symbolClickColor;
   font-weight: 600;

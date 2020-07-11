@@ -1,6 +1,4 @@
 <script>
-import { mapMutations } from 'vuex';
-import { RESET_COLOR } from '../../store/mutations';
 import Equation from '../../components/Equation.vue';
 
 export default {
@@ -26,9 +24,6 @@ export default {
       required: true,
     },
   },
-  mounted() {
-    this.resetColor();
-  },
   render() {
     return (
       <div class="whiteBoard">
@@ -46,9 +41,6 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      resetColor: `symAppStore/${RESET_COLOR}`,
-    }),
     equations(difficulty) {
       let jsxArr;
       switch (difficulty) {

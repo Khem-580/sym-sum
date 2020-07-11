@@ -3,6 +3,9 @@
     <Header />
     <SymEquation :difficulty=difficulty :x=x :y=y :z=z />
     <SymAnswer :x=x :y=y :z=z />
+    <div @click="resetTest">
+      BUTTON
+    </div>
     <br />
     <br />
     {{ gameKey }} <br />
@@ -64,6 +67,9 @@ export default {
     },
   },
   methods: {
+    resetTest() {
+      this.gameKeyGenerator();
+    },
     gameKeyGenerator() {
       let initgameKey;
       let isFalseGameKey;
@@ -104,7 +110,7 @@ export default {
     },
     createSymbol(varIndex, symbolIndex) {
       return this.getGameKey(varIndex) + this.getGameKey(symbolIndex);
-    }
+    },
   },
 }
 </script>
