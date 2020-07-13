@@ -1,3 +1,4 @@
 export const RANDOM_COLOR = 'randomColor';
 export const SPLICE_COLOR = 'spliceColor';
-export const RESET_COLOR = 'resetColor';
+export const GAMEKEY_GENERATOR = 'gameKeyGenerator';
+export const RESET = 'reset';

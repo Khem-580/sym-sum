@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import ActiveSymbols from '../../components/ActiveSymbols';
 import CircleAnswer from '../../components/CircleAnswer';
 
@@ -24,20 +25,6 @@ export default {
   components: {
     ActiveSymbols,
     CircleAnswer,
-  },
-  props: {
-    x: {
-      type: Object,
-      required: true,
-    },
-    y: {
-      type: Object,
-      required: true,
-    },
-    z: {
-      type: Object,
-      required: true,
-    },
   },
   data() {
     return {
@@ -89,6 +76,12 @@ export default {
       } while (isBoringPattern);
       return activeSymbolsArr;
     },
+    ...mapGetters({
+      x: `symAppStore/x`,
+      y: `symAppStore/y`,
+      z: `symAppStore/z`,
+      difficulty: `symAppStore/difficulty`,
+    }),
   },
   methods: {
     answerCheck() {

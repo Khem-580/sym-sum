@@ -1,28 +1,11 @@
 <script>
+import { mapGetters } from 'vuex';
 import Equation from '../../components/Equation.vue';
 
 export default {
   name: "SymEquation",
   components: {
     Equation,
-  },
-  props: {
-    difficulty: {
-      type: Number,
-      required: true,
-    },
-    x: {
-      type: Object,
-      required: true,
-    },
-    y: {
-      type: Object,
-      required: true,
-    },
-    z: {
-      type: Object,
-      required: true,
-    },
   },
   render() {
     return (
@@ -39,6 +22,12 @@ export default {
       let randomNum = this.x.symbol - this.y.symbol;
       return randomNum;
     },
+    ...mapGetters({
+      x: `symAppStore/x`,
+      y: `symAppStore/y`,
+      z: `symAppStore/z`,
+      difficulty: `symAppStore/difficulty`,
+    }),
   },
   methods: {
     equations(difficulty) {
