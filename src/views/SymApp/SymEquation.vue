@@ -1,5 +1,6 @@
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState, mapMutations } from 'vuex';
+import { RESET_COLOR } from '../../store/mutations';
 import Equation from '../../components/Equation.vue';
 
 export default {
@@ -13,6 +14,11 @@ export default {
         { this.equationSlotedRandom.map((Vnode) => Vnode) }
       </div>
     );
+  },
+  watch: {
+    gameKey() {
+      this.resetColor();
+    },
   },
   computed: {
     equationSlotedRandom() {
@@ -28,6 +34,9 @@ export default {
       z: `symAppStore/z`,
       difficulty: `symAppStore/difficulty`,
     }),
+    ...mapState({
+      gameKey: state => state.symAppStore.gameKey,
+    })
   },
   methods: {
     equations(difficulty) {
@@ -66,6 +75,9 @@ export default {
       }
       return jsxArr;
     },
+    ...mapMutations({
+      resetColor: `symAppStore/${RESET_COLOR}`,
+    })
   }
 }
 </script>

@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapGetters, mapState } from 'vuex';
 import ActiveSymbols from '../../components/ActiveSymbols';
 import CircleAnswer from '../../components/CircleAnswer';
 
@@ -80,38 +80,19 @@ export default {
       x: `symAppStore/x`,
       y: `symAppStore/y`,
       z: `symAppStore/z`,
-      difficulty: `symAppStore/difficulty`,
     }),
+    ...mapState({
+      gameKey: state => state.symAppStore.gameKey,
+    })
+  },
+  watch: {
+    gameKey() {
+      this.resetStyle();
+    }
   },
   methods: {
     answerCheck() {
       this.answerWrong();
-    },
-    answerCorrect() {
-      this.CircleAnswerClass['correct-answer'] = true;
-      this.$forceUpdate();
-      setTimeout(() => {
-        this.CircleAnswerClass['correct-answer'] = false;
-        this.sumQuestion = 999;
-        this.$forceUpdate();
-      }, 1100)
-    },
-    answerWrong() {
-      this.CircleAnswerClass['wrong-answer'] = true;
-      this.wrongCount++;
-      if (this.wrongCount === 1) {
-        this.HrClass['wrong'] = true;
-        this.CircleAnswerClass['warning'] = true;
-      }
-      else if (this.wrongCount === 2) {
-        this.HrClass['fail'] = true;
-      }
-      this.$forceUpdate();
-      setTimeout(() => {
-        this.CircleAnswerClass['wrong-answer'] = false;
-        this.sumQuestion = 65;
-        this.$forceUpdate();
-      }, 1100)
     },
     activeSymbolClick(pos) {
       const isChanged = this.isSymbolChangeable(pos);
@@ -182,7 +163,39 @@ export default {
     },
     resetCountVarUsed() {
       this.countVarUsed = {...this.initVarUsed};
-    }
+    },
+    answerCorrect() {
+      this.CircleAnswerClass['correct-answer'] = true;
+      this.$forceUpdate();
+      setTimeout(() => {
+        this.CircleAnswerClass['correct-answer'] = false;
+        this.sumQuestion = 999;
+        this.$forceUpdate();
+      }, 1100)
+    },
+    answerWrong() {
+      this.CircleAnswerClass['wrong-answer'] = true;
+      this.wrongCount++;
+      if (this.wrongCount === 1) {
+        this.HrClass['wrong'] = true;
+        this.CircleAnswerClass['warning'] = true;
+      }
+      else if (this.wrongCount === 2) {
+        this.HrClass['fail'] = true;
+      }
+      this.$forceUpdate();
+      setTimeout(() => {
+        this.CircleAnswerClass['wrong-answer'] = false;
+        this.sumQuestion = 65;
+        this.$forceUpdate();
+      }, 1100)
+    },
+    resetStyle() {
+      this.wrongCount = 0;
+      this.CircleAnswerClass['warning'] = false;
+      this.HrClass['wrong'] = false;
+      this.HrClass['fail'] = false;
+    },
   }
 }
 </script>

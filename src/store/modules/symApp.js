@@ -1,16 +1,18 @@
-import { RANDOM_COLOR, RESET, SPLICE_COLOR, GAMEKEY_GENERATOR } from '../mutations';
+import { RANDOM_COLOR, RESET_COLOR, SPLICE_COLOR, GAMEKEY_GENERATOR } from '../mutations';
 import { INDEX_KEY, LAST_DIGIT } from '../../common/config';
 
 const initState = () => { 
   return {
-    storeColor: [
-      'rgba(111, 191, 76, 1)',
-      'rgba(255, 165, 0, 1)',
-      'rgba(62, 158, 230, 1)',
-    ],
+    storeColor: initStoreColor(),
     gameKey: '',
   }
 };
+
+const initStoreColor = () => [
+  'rgba(111, 191, 76, 1)',
+  'rgba(255, 165, 0, 1)',
+  'rgba(62, 158, 230, 1)',
+]
 
 export default {
   namespaced: true,
@@ -41,8 +43,8 @@ export default {
       } while (isFalseGameKey);
       state.gameKey = initgameKey;
     },
-    [RESET](state) {
-      Object.assign(state, initState());
+    [RESET_COLOR](state) {
+      Object.assign(state.storeColor, initStoreColor());
     }
   },
   getters: {

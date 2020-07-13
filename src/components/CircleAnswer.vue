@@ -54,6 +54,11 @@ export default {
   border-color: @circleWarningColor;
 }
 
+.default {
+  background: @symbolClickColor;
+  color:white;
+}
+
 .correct-answer {
   background: @symbolClickColor;
   color:white;

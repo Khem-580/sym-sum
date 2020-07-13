@@ -47,8 +47,12 @@ export default {
     }
   },
   mounted() {
-    this.themeColor = this.getRandomColor();
-    this.spliceColor(this.themeColor);
+    this.setRandomColor();
+  },
+  watch: {
+    gameKey() {
+      this.setRandomColor();
+    },
   },
   data() {
     return {
@@ -86,17 +90,19 @@ export default {
     },
     ...mapState({
       storeColor: state => state.symAppStore.storeColor,
+      gameKey: state => state.symAppStore.gameKey,
     }),
   },
   methods: {
-    getRandomColor() {
+    setRandomColor() {
       const randomNum = this.a.symbol % this.storeColor.length;
-      return this.storeColor[randomNum];
+      this.themeColor = this.storeColor[randomNum];
+      this.spliceColor(this.themeColor);
     },
     ...mapMutations({
-      spliceColor: `symAppStore/${SPLICE_COLOR}`
+      spliceColor: `symAppStore/${SPLICE_COLOR}`,
     }),
-  }
+  },
 }
 </script>
 
